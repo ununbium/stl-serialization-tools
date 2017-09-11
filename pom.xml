@@ -6,7 +6,10 @@
 	<groupId>spiffy.rocks</groupId>
 	<artifactId>stapler</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<modules>
+		<module>stl-parse</module>
+	</modules>
+	<packaging>pom</packaging>
 
 	<name>stapler</name>
 	<description>Serialisation tools for STL 3d model files</description>
