@@ -2,8 +2,6 @@ package rocks.spiffy.stl.parse;
 
 import org.antlr.v4.runtime.*;
 import org.junit.Test;
-import rocks.spiffy.stl.FieldLexer;
-import rocks.spiffy.stl.FieldParser;
 import rocks.spiffy.stl.StlAsciiLexer;
 import rocks.spiffy.stl.StlAsciiParser;
 
