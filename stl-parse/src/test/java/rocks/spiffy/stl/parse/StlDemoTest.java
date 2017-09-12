@@ -8,14 +8,16 @@ import rocks.spiffy.stl.StlAsciiParser;
 import java.io.IOException;
 
 /**
- * Unit test for simple App.
+ * Easy way to demo a parse as part of early dev
+ * TODO remove when not needed any more for dev validation
  */
-public class StlTest {
+public class StlDemoTest {
 
     @Test
-    public void testAThing() throws IOException {
+    public void testParse() throws IOException {
         StlAsciiLexer l = new StlAsciiLexer(new ANTLRInputStream(getClass().getResourceAsStream("/camPlate.stl")));
         StlAsciiParser p = new StlAsciiParser(new CommonTokenStream(l));
+
         p.addErrorListener(new BaseErrorListener() {
             @Override
             public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
@@ -26,7 +28,6 @@ public class StlTest {
         p.addParseListener(new PrintingStlAsciiListener());
 
         p.solid();
-
     }
 
 }
