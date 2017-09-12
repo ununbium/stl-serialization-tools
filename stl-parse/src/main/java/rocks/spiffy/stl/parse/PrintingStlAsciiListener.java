@@ -46,6 +46,18 @@ public class PrintingStlAsciiListener implements StlAsciiListener {
     }
 
     @Override
+    public void enterVertex(StlAsciiParser.VertexContext ctx) {
+    }
+
+    @Override
+    public void exitVertex(StlAsciiParser.VertexContext ctx) {
+        String vx = ctx.vertexX.getText();
+        String vy = ctx.vertexY.getText();
+        String vz = ctx.vertexZ.getText();
+        log.info(String.format("vertex [%s %s %s]", vx, vy, vz));
+    }
+
+    @Override
     public void visitTerminal(TerminalNode terminalNode) {
 
     }
