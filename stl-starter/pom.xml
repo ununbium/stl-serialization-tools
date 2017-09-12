@@ -7,10 +7,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>stl-quickstart</artifactId>
+    <artifactId>stl-starter</artifactId>
     <packaging>jar</packaging>
 
-    <name>stl-quickstart</name>
+    <name>stl-starter</name>
     <url>http://maven.apache.org</url>
 
     <properties>

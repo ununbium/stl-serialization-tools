@@ -10,7 +10,7 @@
 	<modules>
 		<module>stl-parse</module>
 		<module>stl-model</module>
-		<module>stl-quickstart</module>
+		<module>stl-starter</module>
 	</modules>
 	<packaging>pom</packaging>
 
