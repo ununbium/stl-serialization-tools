@@ -38,12 +38,10 @@ facets: (facet WS)* facet WS?;
 //            outerLoop WS
 //       'endfacet';
 
-facet: FacetNormal WS normalX=ExpNumber WS normalX=ExpNumber WS normalX=ExpNumber WS
-           outerLoop WS
+facet: FacetNormal WS normalX=ExpNumber WS normalY=ExpNumber WS normalZ=ExpNumber WS
+           OuterLoop WS
+               Vertex WS vertexA_X=ExpNumber WS vertexA_Y=ExpNumber WS vertexA_Z=ExpNumber WS
+               Vertex WS vertexB_Y=ExpNumber WS vertexB_Y=ExpNumber WS vertexB_Z=ExpNumber WS
+               Vertex WS vertexC_X=ExpNumber WS vertexC_Y=ExpNumber WS vertexC_Z=ExpNumber WS
+          EndOuterLoop WS
        EndFacetNormal;
-
-outerLoop: OuterLoop WS
-             Vertex WS vertexA_X=ExpNumber WS vertexA_Y=ExpNumber WS vertexA_Z=ExpNumber WS
-             Vertex WS vertexB_Y=ExpNumber WS vertexB_Y=ExpNumber WS vertexB_Z=ExpNumber WS
-             Vertex WS vertexC_X=ExpNumber WS vertexC_Y=ExpNumber WS vertexC_Z=ExpNumber WS
-           EndOuterLoop;

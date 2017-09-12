@@ -25,7 +25,7 @@ public class PrintingStlAsciiListener implements StlAsciiListener {
 
     @Override
     public void enterFacets(StlAsciiParser.FacetsContext ctx) {
-        log.info("entered Facets");
+        log.info("Entered Facets");
     }
 
     @Override
@@ -34,23 +34,15 @@ public class PrintingStlAsciiListener implements StlAsciiListener {
     }
 
     @Override
-    public void enterFacet(StlAsciiParser.FacetContext ctx) {
-        log.info("entered Facet");
-    }
+    public void enterFacet(StlAsciiParser.FacetContext ctx) {}
 
     @Override
     public void exitFacet(StlAsciiParser.FacetContext ctx) {
-        log.info("Exited Facet");
-    }
+        String nX = ctx.normalX.getText();
+        String nY = ctx.normalY.getText();
+        String nZ = ctx.normalZ.getText();
 
-    @Override
-    public void enterOuterLoop(StlAsciiParser.OuterLoopContext ctx) {
-        log.info("entered OuterLoop");
-    }
-
-    @Override
-    public void exitOuterLoop(StlAsciiParser.OuterLoopContext ctx) {
-        log.info("exited OuterLoop");
+        log.info(String.format("Facet n:[%s %s %s]", nX, nY, nZ));
     }
 
     @Override
