@@ -7,11 +7,9 @@ import rocks.spiffy.stl.StlAsciiListener;
 import rocks.spiffy.stl.StlAsciiParser;
 import rocks.spiffy.stl.model.Facet;
 import rocks.spiffy.stl.model.Normal;
+import rocks.spiffy.stl.model.Solid;
 import rocks.spiffy.stl.model.Vertex;
-import rocks.spiffy.stl.model.builder.FacetBuilder;
-import rocks.spiffy.stl.model.builder.FacetBuilderFactory;
-import rocks.spiffy.stl.model.builder.NormalBuilder;
-import rocks.spiffy.stl.model.builder.VertexBuilder;
+import rocks.spiffy.stl.model.builder.*;
 
 /**
  * ListenerFactory for a Solids object.
@@ -26,15 +24,26 @@ public class SolidsListenerFactory extends StlAsciiBaseListener implements StlAs
     private final NormalBuilder normalBuilder;
     private final FacetBuilderFactory facetBuilderFactory;
     private FacetBuilder facetBuilder;
+    private final SolidBuilderFactory solidBuilderFactory;
+    private SolidBuilder solidBuilder;
 
-    public SolidsListenerFactory(VertexBuilder vertexBuilder, NormalBuilder normalBuilder, FacetBuilderFactory facetBuilderFactory) {
+
+    public SolidsListenerFactory(VertexBuilder vertexBuilder,
+                                 NormalBuilder normalBuilder,
+                                 FacetBuilderFactory facetBuilderFactory,
+                                 SolidBuilderFactory solidBuilderFactory) {
         Assert.notNull(vertexBuilder, "Vertex builder cannot be null");
         Assert.notNull(normalBuilder, "Normal builder cannot be null");
         Assert.notNull(facetBuilderFactory, "Facet builder factory cannot be null");
+        Assert.notNull(solidBuilderFactory, "Solid builder factory cannot be null");
         this.vertexBuilder = vertexBuilder;
         this.normalBuilder = normalBuilder;
+
         this.facetBuilderFactory = facetBuilderFactory;
         facetBuilder = facetBuilderFactory.newInstance();
+
+        this.solidBuilderFactory = solidBuilderFactory;
+        this.solidBuilder = solidBuilderFactory.newInstance();
     }
 
     @Override
@@ -55,20 +64,27 @@ public class SolidsListenerFactory extends StlAsciiBaseListener implements StlAs
         Normal normal = normalBuilder.fromStrings(z, y, x);
         Facet facet = facetBuilder.generateFacet(normal);
 
-        //TODO add to Solid Builder
+        solidBuilder.addFacet(facet);
 
         facetBuilder = facetBuilderFactory.newInstance();
     }
 
+    @Override
+    public void exitSolid(StlAsciiParser.SolidContext ctx) {
+        String name = ctx.name.getText();
+        Solid solid = solidBuilder.generateSolid(name);
+
+        //TODO add to solids
+
+        solidBuilder = solidBuilderFactory.newInstance();
+    }
+
+
     //    @Override public void enterSolid(StlAsciiParser.SolidContext ctx) { }
-    //    @Override public void exitSolid(StlAsciiParser.SolidContext ctx) { }
     //    @Override public void enterFacets(StlAsciiParser.FacetsContext ctx) { }
     //    @Override public void exitFacets(StlAsciiParser.FacetsContext ctx) { }
     //    @Override public void enterFacet(StlAsciiParser.FacetContext ctx) { }
-
-
     //    @Override public void enterVertex(StlAsciiParser.VertexContext ctx) { }
-
     //    @Override public void enterEveryRule(ParserRuleContext ctx) { }
     //    @Override public void exitEveryRule(ParserRuleContext ctx) { }
     //    @Override public void visitTerminal(TerminalNode node) { }
