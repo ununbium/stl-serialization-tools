@@ -4,6 +4,9 @@ import org.antlr.v4.runtime.*;
 import org.junit.Test;
 import rocks.spiffy.stl.StlAsciiLexer;
 import rocks.spiffy.stl.StlAsciiParser;
+import rocks.spiffy.stl.model.builder.FacetBuilder;
+import rocks.spiffy.stl.model.builder.FacetBuilderFactory;
+import rocks.spiffy.stl.model.builder.NormalBuilder;
 import rocks.spiffy.stl.model.builder.VertexBuilder;
 import rocks.spiffy.stl.model.factory.SolidsListenerFactory;
 
@@ -28,7 +31,9 @@ public class StlDemoTest {
         });
 
         VertexBuilder vb = new VertexBuilder();
-        p.addParseListener(new SolidsListenerFactory(vb));
+        NormalBuilder nb = new NormalBuilder();
+        FacetBuilderFactory fb = new FacetBuilderFactory();
+        p.addParseListener(new SolidsListenerFactory(vb, nb, fb));
 
         p.solid();
     }

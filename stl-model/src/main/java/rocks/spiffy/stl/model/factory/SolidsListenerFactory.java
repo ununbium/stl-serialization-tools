@@ -1,14 +1,16 @@
 package rocks.spiffy.stl.model.factory;
 
 import lombok.extern.slf4j.Slf4j;
-import org.antlr.v4.runtime.ParserRuleContext;
-import org.antlr.v4.runtime.tree.ErrorNode;
-import org.antlr.v4.runtime.tree.TerminalNode;
 import org.springframework.util.Assert;
 import rocks.spiffy.stl.StlAsciiBaseListener;
 import rocks.spiffy.stl.StlAsciiListener;
 import rocks.spiffy.stl.StlAsciiParser;
+import rocks.spiffy.stl.model.Facet;
+import rocks.spiffy.stl.model.Normal;
 import rocks.spiffy.stl.model.Vertex;
+import rocks.spiffy.stl.model.builder.FacetBuilder;
+import rocks.spiffy.stl.model.builder.FacetBuilderFactory;
+import rocks.spiffy.stl.model.builder.NormalBuilder;
 import rocks.spiffy.stl.model.builder.VertexBuilder;
 
 /**
@@ -21,10 +23,18 @@ import rocks.spiffy.stl.model.builder.VertexBuilder;
 public class SolidsListenerFactory extends StlAsciiBaseListener implements StlAsciiListener {
 
     private final VertexBuilder vertexBuilder;
+    private final NormalBuilder normalBuilder;
+    private final FacetBuilderFactory facetBuilderFactory;
+    private FacetBuilder facetBuilder;
 
-    public SolidsListenerFactory(VertexBuilder vertexBuilder) {
+    public SolidsListenerFactory(VertexBuilder vertexBuilder, NormalBuilder normalBuilder, FacetBuilderFactory facetBuilderFactory) {
         Assert.notNull(vertexBuilder, "Vertex builder cannot be null");
+        Assert.notNull(normalBuilder, "Normal builder cannot be null");
+        Assert.notNull(facetBuilderFactory, "Facet builder factory cannot be null");
         this.vertexBuilder = vertexBuilder;
+        this.normalBuilder = normalBuilder;
+        this.facetBuilderFactory = facetBuilderFactory;
+        facetBuilder = facetBuilderFactory.newInstance();
     }
 
     @Override
@@ -33,7 +43,21 @@ public class SolidsListenerFactory extends StlAsciiBaseListener implements StlAs
         String y = ctx.vertexY.getText();
         String z = ctx.vertexZ.getText();
         Vertex vertex = vertexBuilder.fromStrings(x, y, z);
-        //TODO pass on to next builder
+        facetBuilder.addVertex(vertex);
+    }
+
+    @Override
+    public void exitFacet(StlAsciiParser.FacetContext ctx) {
+        String x = ctx.normalZ.getText();
+        String y = ctx.normalY.getText();
+        String z = ctx.normalX.getText();
+
+        Normal normal = normalBuilder.fromStrings(z, y, x);
+        Facet facet = facetBuilder.generateFacet(normal);
+
+        //TODO add to Solid Builder
+
+        facetBuilder = facetBuilderFactory.newInstance();
     }
 
     //    @Override public void enterSolid(StlAsciiParser.SolidContext ctx) { }
@@ -41,7 +65,6 @@ public class SolidsListenerFactory extends StlAsciiBaseListener implements StlAs
     //    @Override public void enterFacets(StlAsciiParser.FacetsContext ctx) { }
     //    @Override public void exitFacets(StlAsciiParser.FacetsContext ctx) { }
     //    @Override public void enterFacet(StlAsciiParser.FacetContext ctx) { }
-    //    @Override public void exitFacet(StlAsciiParser.FacetContext ctx) { }
 
 
     //    @Override public void enterVertex(StlAsciiParser.VertexContext ctx) { }

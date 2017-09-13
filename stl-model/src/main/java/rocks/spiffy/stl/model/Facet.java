@@ -1,5 +1,6 @@
 package rocks.spiffy.stl.model;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.util.Assert;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * A simplification of the underlying file format, every facet is assumed to be the regular (three a vertex one loop)
  * simple triangle.
  */
+@Data
 @EqualsAndHashCode
 public class Facet {
     private final List<Vertex> vertexes;
@@ -24,6 +26,10 @@ public class Facet {
 
     public List<Vertex> getVertexes() {
         return Collections.unmodifiableList(vertexes);
+    }
+
+    public Normal getNormal() {
+        return normal;
     }
 
 }

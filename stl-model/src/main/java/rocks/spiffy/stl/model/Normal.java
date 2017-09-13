@@ -2,6 +2,7 @@ package rocks.spiffy.stl.model;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
@@ -10,6 +11,7 @@ import java.math.BigDecimal;
  * Unit normal vector
  */
 @EqualsAndHashCode
+@ToString
 @Getter
 public class Normal {
     private final BigDecimal x;
