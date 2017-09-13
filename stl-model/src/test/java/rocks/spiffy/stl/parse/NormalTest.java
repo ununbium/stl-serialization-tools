@@ -5,7 +5,7 @@ import rocks.spiffy.stl.Normal;
 
 import java.math.BigDecimal;
 
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
@@ -39,7 +39,7 @@ public class NormalTest {
         BigDecimal z = mock(BigDecimal.class);
 
         //when
-        Normal n = new Normal(x, y, z);
+        new Normal(x, y, z);
 
         //then
         //exception expected
@@ -53,7 +53,7 @@ public class NormalTest {
         BigDecimal z = mock(BigDecimal.class);
 
         //when
-        Normal n = new Normal(x, y, z);
+        new Normal(x, y, z);
 
         //then
         //exception expected
@@ -67,7 +67,7 @@ public class NormalTest {
         BigDecimal z = null;
 
         //when
-        Normal n = new Normal(x, y, z);
+        new Normal(x, y, z);
 
         //then
         //exception expected
