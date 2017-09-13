@@ -1,4 +1,4 @@
-package rocks.spiffy.stl;
+package rocks.spiffy.stl.model;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

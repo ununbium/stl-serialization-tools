@@ -1,4 +1,4 @@
-package rocks.spiffy.stl;
+package rocks.spiffy.stl.model;
 
 import java.util.ArrayList;
 import java.util.Collections;

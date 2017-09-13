@@ -1,10 +1,9 @@
-package rocks.spiffy.stl.parse;
+package rocks.spiffy.stl.model;
 
 import org.junit.Test;
-import rocks.spiffy.stl.Facet;
-import rocks.spiffy.stl.Normal;
+import rocks.spiffy.stl.model.Facet;
+import rocks.spiffy.stl.model.Normal;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,21 +17,21 @@ public class FacetTest {
     public void testConstructorParametersRetrievable() {
         //given
         Normal n = mock(Normal.class);
-        List<BigDecimal> vertexes = new ArrayList<>();
+        List<Vertex> vertexes = new ArrayList<>();
 
-        BigDecimal v0 = mock(BigDecimal.class);
+        Vertex v0 = mock(Vertex.class);
         vertexes.add(v0);
 
-        BigDecimal v1 = mock(BigDecimal.class);
+        Vertex v1 = mock(Vertex.class);
         vertexes.add(v1);
 
-        BigDecimal v2 = mock(BigDecimal.class);
+        Vertex v2 = mock(Vertex.class);
         vertexes.add(v2);
 
         Facet f = new Facet(vertexes, n);
 
         //when
-        List<BigDecimal> vetexesResult = f.getVertexes();
+        List<Vertex> vetexesResult = f.getVertexes();
 
         //then
         assertThat(vetexesResult, is(vertexes));
@@ -42,10 +41,10 @@ public class FacetTest {
     public void testConstructorNotEnoughVetexes() {
         //given
         Normal n = mock(Normal.class);
-        List<BigDecimal> vertexes = new ArrayList<>();
+        List<Vertex> vertexes = new ArrayList<>();
 
-        vertexes.add(mock(BigDecimal.class));
-        vertexes.add(mock(BigDecimal.class));
+        vertexes.add(mock(Vertex.class));
+        vertexes.add(mock(Vertex.class));
 
         //when
         new Facet(vertexes, n);
@@ -58,7 +57,7 @@ public class FacetTest {
     public void testConstructorNoVetexes() {
         //given
         Normal n = mock(Normal.class);
-        List<BigDecimal> vertexes = new ArrayList<>();
+        List<Vertex> vertexes = new ArrayList<>();
 
         //when
         new Facet(vertexes, n);
@@ -73,12 +72,12 @@ public class FacetTest {
     public void testConstructorTooManyVetexes() {
         //given
         Normal n = mock(Normal.class);
-        List<BigDecimal> vertexes = new ArrayList<>();
+        List<Vertex> vertexes = new ArrayList<>();
 
-        vertexes.add(mock(BigDecimal.class));
-        vertexes.add(mock(BigDecimal.class));
-        vertexes.add(mock(BigDecimal.class));
-        vertexes.add(mock(BigDecimal.class));
+        vertexes.add(mock(Vertex.class));
+        vertexes.add(mock(Vertex.class));
+        vertexes.add(mock(Vertex.class));
+        vertexes.add(mock(Vertex.class));
 
         //when
         new Facet(vertexes, n);

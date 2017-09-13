@@ -1,4 +1,4 @@
-package rocks.spiffy.stl;
+package rocks.spiffy.stl.model;
 
 import lombok.EqualsAndHashCode;
 import org.springframework.util.Assert;
@@ -13,16 +13,16 @@ import java.util.List;
  */
 @EqualsAndHashCode
 public class Facet {
-    private final List<BigDecimal> vertexes;
+    private final List<Vertex> vertexes;
     private final Normal normal;
 
-    public Facet(List<BigDecimal> vertexes, Normal normal) {
+    public Facet(List<Vertex> vertexes, Normal normal) {
         Assert.isTrue(vertexes.size()==3, "unexpected number of vertexes");
         this.vertexes = vertexes;
         this.normal = normal;
     }
 
-    public List<BigDecimal> getVertexes() {
+    public List<Vertex> getVertexes() {
         return Collections.unmodifiableList(vertexes);
     }
 

@@ -1,8 +1,8 @@
-package rocks.spiffy.stl.parse;
+package rocks.spiffy.stl.model;
 
 import org.junit.Test;
-import rocks.spiffy.stl.Solid;
-import rocks.spiffy.stl.Solids;
+import rocks.spiffy.stl.model.Solid;
+import rocks.spiffy.stl.model.Solids;
 
 import java.util.ArrayList;
 import java.util.List;

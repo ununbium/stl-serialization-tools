@@ -1,7 +1,7 @@
-package rocks.spiffy.stl.parse;
+package rocks.spiffy.stl.model;
 
 import org.junit.Test;
-import rocks.spiffy.stl.Normal;
+import rocks.spiffy.stl.model.Normal;
 
 import java.math.BigDecimal;
 
