@@ -1,5 +1,6 @@
 package rocks.spiffy.stl.model;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.springframework.util.Assert;
@@ -11,8 +12,7 @@ import java.util.List;
 /**
  * A point in space identified by x y z co-ordinates
  */
-@Getter
-@EqualsAndHashCode
+@Data
 public class Vertex {
 
     private final BigDecimal x;

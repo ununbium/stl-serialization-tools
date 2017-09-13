@@ -4,6 +4,8 @@ import org.antlr.v4.runtime.*;
 import org.junit.Test;
 import rocks.spiffy.stl.StlAsciiLexer;
 import rocks.spiffy.stl.StlAsciiParser;
+import rocks.spiffy.stl.model.builder.VertexBuilder;
+import rocks.spiffy.stl.model.factory.SolidsListenerFactory;
 
 import java.io.IOException;
 
@@ -25,7 +27,8 @@ public class StlDemoTest {
             }
         });
 
-        p.addParseListener(new PrintingStlAsciiListener());
+        VertexBuilder vb = new VertexBuilder();
+        p.addParseListener(new SolidsListenerFactory(vb));
 
         p.solid();
     }
