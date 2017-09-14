@@ -20,13 +20,14 @@ public class SolidsListenerFactoryTest {
         NormalBuilder normalBuilder = mock(NormalBuilder.class);
         FacetBuilderFactory facetBuilderFactory = mock(FacetBuilderFactory.class);
         SolidBuilderFactory solidBuilderFactory = mock(SolidBuilderFactory.class);
+        SolidsBuilder s = mock(SolidsBuilder.class);
 
         FacetBuilder facetBuilder = mock(FacetBuilder.class);
         when(facetBuilderFactory.newInstance()).thenReturn(facetBuilder);
 
 
         //when
-        new SolidsListenerFactory(vertexBuilder, normalBuilder, facetBuilderFactory, solidBuilderFactory);
+        new SolidsListenerFactory(vertexBuilder, normalBuilder, facetBuilderFactory, solidBuilderFactory, s);
 
 
         //then
@@ -39,12 +40,13 @@ public class SolidsListenerFactoryTest {
         NormalBuilder normalBuilder = mock(NormalBuilder.class);
         FacetBuilderFactory facetBuilderFactory = mock(FacetBuilderFactory.class);
         SolidBuilderFactory solidBuilderFactory = mock(SolidBuilderFactory.class);
+        SolidsBuilder s = mock(SolidsBuilder.class);
 
         SolidBuilder solidBuilder = mock(SolidBuilder.class);
         when(solidBuilderFactory.newInstance()).thenReturn(solidBuilder);
 
         //when
-        new SolidsListenerFactory(vertexBuilder, normalBuilder, facetBuilderFactory, solidBuilderFactory);
+        new SolidsListenerFactory(vertexBuilder, normalBuilder, facetBuilderFactory, solidBuilderFactory, s);
 
 
         //then
@@ -58,15 +60,16 @@ public class SolidsListenerFactoryTest {
         NormalBuilder normalBuilder = mock(NormalBuilder.class);
         FacetBuilderFactory facetBuilderFactory = mock(FacetBuilderFactory.class);
         SolidBuilderFactory solidBuilderFactory = mock(SolidBuilderFactory.class);
+        SolidsBuilder s = mock(SolidsBuilder.class);
 
         SolidBuilder solidBuilder = mock(SolidBuilder.class);
         when(solidBuilderFactory.newInstance()).thenReturn(solidBuilder);
 
-
         FacetBuilder facetBuilder = mock(FacetBuilder.class);
         when(facetBuilderFactory.newInstance()).thenReturn(facetBuilder);
 
-        SolidsListenerFactory factory = new SolidsListenerFactory(vertexBuilder, normalBuilder, facetBuilderFactory, solidBuilderFactory);
+        SolidsListenerFactory factory =
+                new SolidsListenerFactory(vertexBuilder, normalBuilder, facetBuilderFactory, solidBuilderFactory, s);
 
         StlAsciiParser.VertexContext ctx = new StlAsciiParser.VertexContext(null, 0);
 
@@ -98,15 +101,16 @@ public class SolidsListenerFactoryTest {
         NormalBuilder normalBuilder = mock(NormalBuilder.class);
         FacetBuilderFactory facetBuilderFactory = mock(FacetBuilderFactory.class);
         SolidBuilderFactory solidBuilderFactory = mock(SolidBuilderFactory.class);
+        SolidsBuilder s = mock(SolidsBuilder.class);
 
         SolidBuilder solidBuilder = mock(SolidBuilder.class);
         when(solidBuilderFactory.newInstance()).thenReturn(solidBuilder);
 
-
         FacetBuilder facetBuilder = mock(FacetBuilder.class);
         when(facetBuilderFactory.newInstance()).thenReturn(facetBuilder);
 
-        SolidsListenerFactory factory = new SolidsListenerFactory(vertexBuilder, normalBuilder, facetBuilderFactory, solidBuilderFactory);
+        SolidsListenerFactory factory =
+                new SolidsListenerFactory(vertexBuilder, normalBuilder, facetBuilderFactory, solidBuilderFactory,s);
 
         StlAsciiParser.FacetContext ctx = new StlAsciiParser.FacetContext(null, 0);
 
@@ -143,15 +147,15 @@ public class SolidsListenerFactoryTest {
         NormalBuilder normalBuilder = mock(NormalBuilder.class);
         FacetBuilderFactory facetBuilderFactory = mock(FacetBuilderFactory.class);
         SolidBuilderFactory solidBuilderFactory = mock(SolidBuilderFactory.class);
+        SolidsBuilder s = mock(SolidsBuilder.class);
 
         SolidBuilder solidBuilder = mock(SolidBuilder.class);
         when(solidBuilderFactory.newInstance()).thenReturn(solidBuilder);
 
-
         FacetBuilder facetBuilder = mock(FacetBuilder.class);
         when(facetBuilderFactory.newInstance()).thenReturn(facetBuilder);
 
-        SolidsListenerFactory factory = new SolidsListenerFactory(vertexBuilder, normalBuilder, facetBuilderFactory, solidBuilderFactory);
+        SolidsListenerFactory factory = new SolidsListenerFactory(vertexBuilder, normalBuilder, facetBuilderFactory, solidBuilderFactory, s);
 
         StlAsciiParser.SolidContext ctx = new StlAsciiParser.SolidContext(null, 0);
 
@@ -163,13 +167,12 @@ public class SolidsListenerFactoryTest {
         Solid solid = mock(Solid.class);
         when(solidBuilder.generateSolid(solidName)).thenReturn(solid);
 
-        //TODO solid should be added to Solids builder
-
         //when
         factory.exitSolid(ctx);
 
         //then
         verify(solidBuilderFactory, times(2)).newInstance();
+        verify(s).addSolid(solid);
     }
 
 }

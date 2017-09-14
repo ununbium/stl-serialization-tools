@@ -31,7 +31,8 @@ public class StlDemoTest {
         NormalBuilder nb = new NormalBuilder();
         FacetBuilderFactory fb = new FacetBuilderFactory();
         SolidBuilderFactory sbf = new SolidBuilderFactory();
-        p.addParseListener(new SolidsListenerFactory(vb, nb, fb, sbf));
+        SolidsBuilder s = new SolidsBuilder();
+        p.addParseListener(new SolidsListenerFactory(vb, nb, fb, sbf, s));
 
         p.solid();
     }

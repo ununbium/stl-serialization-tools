@@ -23,6 +23,7 @@ public class SolidsListenerFactory extends StlAsciiBaseListener implements StlAs
     private final VertexBuilder vertexBuilder;
     private final NormalBuilder normalBuilder;
     private final FacetBuilderFactory facetBuilderFactory;
+    private final SolidsBuilder solidsBuilder;
     private FacetBuilder facetBuilder;
     private final SolidBuilderFactory solidBuilderFactory;
     private SolidBuilder solidBuilder;
@@ -31,7 +32,8 @@ public class SolidsListenerFactory extends StlAsciiBaseListener implements StlAs
     public SolidsListenerFactory(VertexBuilder vertexBuilder,
                                  NormalBuilder normalBuilder,
                                  FacetBuilderFactory facetBuilderFactory,
-                                 SolidBuilderFactory solidBuilderFactory) {
+                                 SolidBuilderFactory solidBuilderFactory,
+                                 SolidsBuilder solidsBuilder) {
         Assert.notNull(vertexBuilder, "Vertex builder cannot be null");
         Assert.notNull(normalBuilder, "Normal builder cannot be null");
         Assert.notNull(facetBuilderFactory, "Facet builder factory cannot be null");
@@ -44,6 +46,8 @@ public class SolidsListenerFactory extends StlAsciiBaseListener implements StlAs
 
         this.solidBuilderFactory = solidBuilderFactory;
         this.solidBuilder = solidBuilderFactory.newInstance();
+
+        this.solidsBuilder = solidsBuilder;
     }
 
     @Override
@@ -74,12 +78,17 @@ public class SolidsListenerFactory extends StlAsciiBaseListener implements StlAs
         String name = ctx.name.getText();
         Solid solid = solidBuilder.generateSolid(name);
 
-        //TODO add to solids
+        solidsBuilder.addSolid(solid);
 
         solidBuilder = solidBuilderFactory.newInstance();
     }
 
+    @Override
+    public void exitSolids(StlAsciiParser.SolidsContext ctx) {
+        //TODO callback future to signal solids parsed
+    }
 
+    //    @Override public void enterSolids(StlAsciiParser.SolidsContext ctx);
     //    @Override public void enterSolid(StlAsciiParser.SolidContext ctx) { }
     //    @Override public void enterFacets(StlAsciiParser.FacetsContext ctx) { }
     //    @Override public void exitFacets(StlAsciiParser.FacetsContext ctx) { }
