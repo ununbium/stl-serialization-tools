@@ -34,7 +34,7 @@ public class StlDemoTest {
         SolidsBuilder s = new SolidsBuilder();
         p.addParseListener(new SolidsListenerFactory(vb, nb, fb, sbf, s));
 
-        p.solid();
+        p.solids();
     }
 
 }

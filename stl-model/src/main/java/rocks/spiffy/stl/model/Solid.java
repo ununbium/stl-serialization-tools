@@ -2,6 +2,7 @@ package rocks.spiffy.stl.model;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 import org.springframework.util.Assert;
 
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.List;
 /**
  * An stl solid
  */
+@ToString
 @EqualsAndHashCode
 public class Solid {
 

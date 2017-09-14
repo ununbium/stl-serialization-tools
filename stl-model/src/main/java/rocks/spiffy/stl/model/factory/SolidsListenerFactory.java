@@ -5,10 +5,7 @@ import org.springframework.util.Assert;
 import rocks.spiffy.stl.StlAsciiBaseListener;
 import rocks.spiffy.stl.StlAsciiListener;
 import rocks.spiffy.stl.StlAsciiParser;
-import rocks.spiffy.stl.model.Facet;
-import rocks.spiffy.stl.model.Normal;
-import rocks.spiffy.stl.model.Solid;
-import rocks.spiffy.stl.model.Vertex;
+import rocks.spiffy.stl.model.*;
 import rocks.spiffy.stl.model.builder.*;
 
 /**
@@ -86,6 +83,9 @@ public class SolidsListenerFactory extends StlAsciiBaseListener implements StlAs
     @Override
     public void exitSolids(StlAsciiParser.SolidsContext ctx) {
         //TODO callback future to signal solids parsed
+        Solids solids = solidsBuilder.generateSolids();
+        log.info(solids.toString());
+
     }
 
     //    @Override public void enterSolids(StlAsciiParser.SolidsContext ctx);
