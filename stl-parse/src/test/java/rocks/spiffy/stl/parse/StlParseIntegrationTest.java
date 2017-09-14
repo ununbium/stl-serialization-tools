@@ -25,7 +25,23 @@ public class StlParseIntegrationTest {
 
         p.addParseListener(new PrintingStlAsciiListener());
 
-        p.solid();
+        p.solids();
+    }
+
+    @Test
+    public void testParse_multipleSolid_Valid() throws IOException {
+        StlAsciiLexer l = new StlAsciiLexer(new ANTLRInputStream(getClass().getResourceAsStream("/stl/samples/small_multipleSolid_Valid.stl")));
+        StlAsciiParser p = new StlAsciiParser(new CommonTokenStream(l));
+        p.addErrorListener(new BaseErrorListener() {
+            @Override
+            public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
+                throw new IllegalStateException("failed to parse at line " + line + " due to " + msg, e);
+            }
+        });
+
+        p.addParseListener(new PrintingStlAsciiListener());
+
+        p.solids();
     }
 
     @Test
@@ -39,7 +55,7 @@ public class StlParseIntegrationTest {
             }
         });
 
-        p.solid();
+        p.solids();
     }
 
     @Test(expected = IllegalStateException.class)
@@ -53,7 +69,7 @@ public class StlParseIntegrationTest {
             }
         });
 
-        p.solid();
+        p.solids();
     }
 
     @Test(expected = IllegalStateException.class)
@@ -67,7 +83,7 @@ public class StlParseIntegrationTest {
             }
         });
 
-        p.solid();
+        p.solids();
     }
 
     @Test(expected = IllegalStateException.class)
@@ -81,7 +97,7 @@ public class StlParseIntegrationTest {
             }
         });
 
-        p.solid();
+        p.solids();
     }
 
     @Test(expected = IllegalStateException.class)
@@ -95,7 +111,7 @@ public class StlParseIntegrationTest {
             }
         });
 
-        p.solid();
+        p.solids();
     }
 
 }

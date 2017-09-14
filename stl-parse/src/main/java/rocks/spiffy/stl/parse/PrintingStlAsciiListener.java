@@ -14,6 +14,16 @@ import rocks.spiffy.stl.StlAsciiParser;
 public class PrintingStlAsciiListener implements StlAsciiListener {
 
     @Override
+    public void enterSolids(StlAsciiParser.SolidsContext ctx) {
+        log.info("entered solids");
+    }
+
+    @Override
+    public void exitSolids(StlAsciiParser.SolidsContext ctx) {
+        log.info("exited solids");
+    }
+
+    @Override
     public void enterSolid(StlAsciiParser.SolidContext ctx) {
         log.info("entered solid");
     }

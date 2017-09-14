@@ -26,10 +26,11 @@ WS: (' ' | '\t' | '\n' | '\r' )+;
 Space: ' ';
 fragment NL:  '\r'? '\n';
 
+solids: (solid)+ EOF;
 
 solid: Solid WS name=Name WS
             facets WS
-       EndSolid;
+       EndSolid WS Name WS?;
 
 facets: (facet WS)* facet WS?;
 
