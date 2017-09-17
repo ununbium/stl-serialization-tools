@@ -8,6 +8,9 @@ import rocks.spiffy.stl.StlAsciiParser;
 import rocks.spiffy.stl.model.*;
 import rocks.spiffy.stl.model.builder.*;
 
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
 /**
  * ListenerFactory for a Solids object.
  *
@@ -24,13 +27,14 @@ public class SolidsListenerFactory extends StlAsciiBaseListener implements StlAs
     private FacetBuilder facetBuilder;
     private final SolidBuilderFactory solidBuilderFactory;
     private SolidBuilder solidBuilder;
+    private Solids solids;
 
 
     public SolidsListenerFactory(VertexBuilder vertexBuilder,
                                  NormalBuilder normalBuilder,
                                  FacetBuilderFactory facetBuilderFactory,
                                  SolidBuilderFactory solidBuilderFactory,
-                                 SolidsBuilder solidsBuilder) {
+                                 SolidsBuilderFactory solidsBuilderFactory) {
         Assert.notNull(vertexBuilder, "Vertex builder cannot be null");
         Assert.notNull(normalBuilder, "Normal builder cannot be null");
         Assert.notNull(facetBuilderFactory, "Facet builder factory cannot be null");
@@ -44,7 +48,7 @@ public class SolidsListenerFactory extends StlAsciiBaseListener implements StlAs
         this.solidBuilderFactory = solidBuilderFactory;
         this.solidBuilder = solidBuilderFactory.newInstance();
 
-        this.solidsBuilder = solidsBuilder;
+        this.solidsBuilder = solidsBuilderFactory.newInstance();
     }
 
     @Override
@@ -74,18 +78,36 @@ public class SolidsListenerFactory extends StlAsciiBaseListener implements StlAs
     public void exitSolid(StlAsciiParser.SolidContext ctx) {
         String name = ctx.name.getText();
         Solid solid = solidBuilder.generateSolid(name);
-
         solidsBuilder.addSolid(solid);
-
         solidBuilder = solidBuilderFactory.newInstance();
     }
 
     @Override
     public void exitSolids(StlAsciiParser.SolidsContext ctx) {
-        //TODO callback future to signal solids parsed
-        Solids solids = solidsBuilder.generateSolids();
+        solids = solidsBuilder.generateSolids();
         log.info(solids.toString());
+    }
 
+    /**
+     * @return true if the solids object has been produced by the interpreter
+     */
+    public boolean hasSolidsAvailable() {
+        return solids != null;
+    }
+
+    /**
+     * Get the stl solids instance. It is required to check hasSolidsAvailable() is true before calling this method.
+     *
+     * @throws NoSuchElementException if the solid is not present when called
+     * @return the product of the interpreter, a soilds instance
+     */
+    public Solids getSolids() {
+
+        if(solids==null) {
+            throw new NoSuchElementException("cannot access non-present solids");
+        }
+
+        return solids;
     }
 
     //    @Override public void enterSolids(StlAsciiParser.SolidsContext ctx);
