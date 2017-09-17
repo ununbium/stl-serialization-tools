@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>spiffy.rocks</groupId>
-	<artifactId>stapler</artifactId>
+	<artifactId>stl-serialization-tools</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<modules>
@@ -12,10 +12,18 @@
 		<module>stl-model</module>
 		<module>stl-starter</module>
 	</modules>
+
 	<packaging>pom</packaging>
 
-	<name>stapler</name>
-	<description>Serialisation tools for STL 3d model files</description>
+	<name>STL serialization tools</name>
+	<description>Tools for STL file manipulation</description>
+
+	<licenses>
+		<license>
+			<name>GNU General Public License version 3</name>
+			<url>https://opensource.org/licenses/GPL-3.0</url>
+		</license>
+	</licenses>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -27,6 +35,7 @@
 		<mockito.version>2.8.47</mockito.version>
 		<junit.version>4.12</junit.version>
 		<powermock.version>1.7.1</powermock.version>
+		<antlr.version>4.5.3</antlr.version>
 	</properties>
 
 	<dependencyManagement>
@@ -83,6 +92,12 @@
 				<artifactId>powermock-api-mockito2</artifactId>
 				<version>${powermock.version}</version>
 				<scope>test</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.antlr</groupId>
+				<artifactId>antlr4-runtime</artifactId>
+				<version>${antlr.version}</version>
 			</dependency>
 
 
