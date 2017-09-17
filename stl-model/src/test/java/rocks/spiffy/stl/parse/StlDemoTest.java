@@ -31,10 +31,11 @@ public class StlDemoTest {
         NormalBuilder nb = new NormalBuilder();
         FacetBuilderFactory fb = new FacetBuilderFactory();
         SolidBuilderFactory sbf = new SolidBuilderFactory();
-        SolidsBuilder s = new SolidsBuilder();
+        SolidsBuilderFactory s = new SolidsBuilderFactory();
         p.addParseListener(new SolidsListenerFactory(vb, nb, fb, sbf, s));
 
-        p.solids();
+        StlAsciiParser.SolidsContext solids = p.solids();
+
     }
 
 }
