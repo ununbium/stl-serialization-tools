@@ -9,7 +9,6 @@ import rocks.spiffy.stl.model.*;
 import rocks.spiffy.stl.model.builder.*;
 
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 /**
  * ListenerFactory for a Solids object.
@@ -18,7 +17,7 @@ import java.util.Optional;
  * listener successfully parsed the full file. Otherwise (not finished parsing or parse failed) returns Optional.empty() *
  */
 @Slf4j
-public class SolidsListenerFactory extends StlAsciiBaseListener implements StlAsciiListener {
+public class StlAsciiInterpreter extends StlAsciiBaseListener {
 
     private final VertexBuilder vertexBuilder;
     private final NormalBuilder normalBuilder;
@@ -30,11 +29,11 @@ public class SolidsListenerFactory extends StlAsciiBaseListener implements StlAs
     private Solids solids;
 
 
-    public SolidsListenerFactory(VertexBuilder vertexBuilder,
-                                 NormalBuilder normalBuilder,
-                                 FacetBuilderFactory facetBuilderFactory,
-                                 SolidBuilderFactory solidBuilderFactory,
-                                 SolidsBuilderFactory solidsBuilderFactory) {
+    public StlAsciiInterpreter(VertexBuilder vertexBuilder,
+                               NormalBuilder normalBuilder,
+                               FacetBuilderFactory facetBuilderFactory,
+                               SolidBuilderFactory solidBuilderFactory,
+                               SolidsBuilderFactory solidsBuilderFactory) {
         Assert.notNull(vertexBuilder, "Vertex builder cannot be null");
         Assert.notNull(normalBuilder, "Normal builder cannot be null");
         Assert.notNull(facetBuilderFactory, "Facet builder factory cannot be null");
@@ -91,34 +90,23 @@ public class SolidsListenerFactory extends StlAsciiBaseListener implements StlAs
     /**
      * @return true if the solids object has been produced by the interpreter
      */
-    public boolean hasSolidsAvailable() {
+    public boolean hasResult() {
         return solids != null;
     }
 
     /**
-     * Get the stl solids instance. It is required to check hasSolidsAvailable() is true before calling this method.
+     * Get the parse result instance. It is required to check hasResult() is true before calling this method.
      *
-     * @throws NoSuchElementException if the solid is not present when called
-     * @return the product of the interpreter, a soilds instance
+     * @throws NoSuchElementException if the result is not present when called
+     * @return the product of the interpreter, a parse results instance
      */
-    public Solids getSolids() {
+    public ParseResult getResult() {
 
         if(solids==null) {
             throw new NoSuchElementException("cannot access non-present solids");
         }
 
-        return solids;
+        return ParseResult.withValue(solids);
     }
-
-    //    @Override public void enterSolids(StlAsciiParser.SolidsContext ctx);
-    //    @Override public void enterSolid(StlAsciiParser.SolidContext ctx) { }
-    //    @Override public void enterFacets(StlAsciiParser.FacetsContext ctx) { }
-    //    @Override public void exitFacets(StlAsciiParser.FacetsContext ctx) { }
-    //    @Override public void enterFacet(StlAsciiParser.FacetContext ctx) { }
-    //    @Override public void enterVertex(StlAsciiParser.VertexContext ctx) { }
-    //    @Override public void enterEveryRule(ParserRuleContext ctx) { }
-    //    @Override public void exitEveryRule(ParserRuleContext ctx) { }
-    //    @Override public void visitTerminal(TerminalNode node) { }
-    //    @Override public void visitErrorNode(ErrorNode node) { }
 
 }

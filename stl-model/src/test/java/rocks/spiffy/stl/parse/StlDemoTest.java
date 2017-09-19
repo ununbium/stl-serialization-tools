@@ -5,7 +5,7 @@ import org.junit.Test;
 import rocks.spiffy.stl.StlAsciiLexer;
 import rocks.spiffy.stl.StlAsciiParser;
 import rocks.spiffy.stl.model.builder.*;
-import rocks.spiffy.stl.model.factory.SolidsListenerFactory;
+import rocks.spiffy.stl.model.factory.StlAsciiInterpreter;
 
 import java.io.IOException;
 
@@ -32,7 +32,7 @@ public class StlDemoTest {
         FacetBuilderFactory fb = new FacetBuilderFactory();
         SolidBuilderFactory sbf = new SolidBuilderFactory();
         SolidsBuilderFactory s = new SolidsBuilderFactory();
-        p.addParseListener(new SolidsListenerFactory(vb, nb, fb, sbf, s));
+        p.addParseListener(new StlAsciiInterpreter(vb, nb, fb, sbf, s));
 
         StlAsciiParser.SolidsContext solids = p.solids();
 
